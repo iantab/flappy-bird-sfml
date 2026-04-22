@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Constants.hpp"
 #include <optional>
+#include "Bird.hpp"
 
 int main()
 {
@@ -22,6 +23,8 @@ int main()
 	float groundScroll = 0.f;
 
 	sf::Clock clock;
+
+	Bird flappy;
 
 	while (window.isOpen()) {
 
@@ -54,6 +57,8 @@ int main()
 		window.draw(background);
 		background.setPosition({ -backgroundScroll + bird::BACKGROUND_LOOPING_POINT, 0.f });
 		window.draw(background);
+
+		flappy.render(window);
 
 		const float groundY = bird::VIRTUAL_HEIGHT - 16.f;
 		ground.setPosition({ -groundScroll, groundY });
