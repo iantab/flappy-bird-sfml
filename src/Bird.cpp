@@ -13,6 +13,8 @@ Bird::Bird() : texture("assets/bird.png"), sprite(texture) {
 	sprite.setPosition({x, y});
 }
 
+void Bird::flap() { dy = -300.f; }
+
 void Bird::update(float dt) {
 	dy += bird::GRAVITY * dt;
 	sprite.move({0.f, dy * dt});

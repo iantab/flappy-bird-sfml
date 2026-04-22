@@ -37,6 +37,9 @@ int main() {
 				if (key->code == sf::Keyboard::Key::Escape) {
 					window.close();
 				}
+				if (key->code == sf::Keyboard::Key::Space) {
+					flappy.flap();
+				}
 			}
 		}
 

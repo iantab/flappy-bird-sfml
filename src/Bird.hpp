@@ -9,6 +9,7 @@ class Bird {
 
 		Bird();
 
+		void flap();
 		void update(float dt);
 		void render(sf::RenderWindow &window) const;
 
