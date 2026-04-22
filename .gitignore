@@ -4,3 +4,18 @@ out
 .idea
 .vs
 .vscode
+
+# OS junk
+Thumbs.db
+.DS_Store
+
+# CMake per-user presets
+CMakeUserPresets.json
+
+# Editor temp files
+*.swp
+*.swo
+*~
+
+# Crash dumps
+*.dmp

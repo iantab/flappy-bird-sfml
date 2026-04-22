@@ -12,12 +12,21 @@ int main()
 
 	sf::Texture backgroundTex("assets/background.png");
 	sf::Texture groundTex("assets/ground.png");
+	backgroundTex.setSmooth(false);
+	groundTex.setSmooth(false);
 
 	sf::Sprite background(backgroundTex);
 	sf::Sprite ground(groundTex);
-	ground.setPosition({ 0.f, bird::VIRTUAL_HEIGHT - 16.f });
+
+	float backgroundScroll = 0.f;
+	float groundScroll = 0.f;
+
+	sf::Clock clock;
 
 	while (window.isOpen()) {
+
+		const float dt = clock.restart().asSeconds();
+
 		while (const std::optional event = window.pollEvent()) {
 			if (event->is<sf::Event::Closed>()) {
 				window.close();
@@ -29,8 +38,27 @@ int main()
 			}
 		}
 
+		backgroundScroll = std::fmod(
+			backgroundScroll + bird::BACKGROUND_SCROLL_SPEED * dt,
+			bird::BACKGROUND_LOOPING_POINT
+		);
+
+		groundScroll = std::fmod(
+			groundScroll + bird::GROUND_SCROLL_SPEED * dt,
+			bird::VIRTUAL_WIDTH
+		);
+
 		window.clear();
+
+		background.setPosition({ -backgroundScroll, 0.f });
 		window.draw(background);
+		background.setPosition({ -backgroundScroll + bird::BACKGROUND_LOOPING_POINT, 0.f });
+		window.draw(background);
+
+		const float groundY = bird::VIRTUAL_HEIGHT - 16.f;
+		ground.setPosition({ -groundScroll, groundY });
+		window.draw(ground);
+		ground.setPosition({ -groundScroll + bird::VIRTUAL_WIDTH, groundY });
 		window.draw(ground);
 		window.display();
 	}
