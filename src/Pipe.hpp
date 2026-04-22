@@ -1,17 +1,16 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class Bird {
+class Pipe {
 	public:
 		float x, y;
 		float width, height;
-		float dy = 0.f;
 
-		Bird(const sf::Texture &texture);
+		Pipe(const sf::Texture &texture);
 
-		void flap();
 		void update(float dt);
 		void render(sf::RenderWindow &window) const;
+		bool offScreen() const;
 
 	private:
 		sf::Sprite sprite;

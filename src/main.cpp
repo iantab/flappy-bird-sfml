@@ -1,7 +1,9 @@
 #include "Bird.hpp"
 #include "Constants.hpp"
+#include "Pipe.hpp"
 #include <SFML/Graphics.hpp>
 #include <optional>
+#include <vector>
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode({1280u, 720u}), "Flappy Bird");
@@ -13,8 +15,13 @@ int main() {
 
 	sf::Texture backgroundTex("assets/background.png");
 	sf::Texture groundTex("assets/ground.png");
+	sf::Texture birdTex("assets/bird.png");
+	sf::Texture pipeTex("assets/pipe.png");
+
 	backgroundTex.setSmooth(false);
 	groundTex.setSmooth(false);
+	birdTex.setSmooth(false);
+	pipeTex.setSmooth(false);
 
 	sf::Sprite background(backgroundTex);
 	sf::Sprite ground(groundTex);
@@ -24,7 +31,10 @@ int main() {
 
 	sf::Clock clock;
 
-	Bird flappy;
+	Bird flappy(birdTex);
+
+	std::vector<Pipe> pipes;
+	float spawnTimer = 0.f;
 
 	while (window.isOpen()) {
 		const float dt = clock.restart().asSeconds();
@@ -43,13 +53,25 @@ int main() {
 			}
 		}
 
-		backgroundScroll =
-				std::fmod(backgroundScroll + bird::BACKGROUND_SCROLL_SPEED * dt,
-									bird::BACKGROUND_LOOPING_POINT);
+		backgroundScroll = std::fmod(
+				backgroundScroll + bird::BACKGROUND_SCROLL_SPEED * dt,
+				bird::BACKGROUND_LOOPING_POINT);
 
-		groundScroll = std::fmod(groundScroll + bird::GROUND_SCROLL_SPEED * dt,
-														 bird::VIRTUAL_WIDTH);
+		groundScroll = std::fmod(
+				groundScroll + bird::GROUND_SCROLL_SPEED * dt,
+				bird::VIRTUAL_WIDTH);
 		flappy.update(dt);
+		spawnTimer += dt;
+		if (spawnTimer > 2.f) {
+			pipes.emplace_back(pipeTex);
+			spawnTimer = 0.f;
+		}
+
+		for (auto &pipe : pipes) {
+			pipe.update(dt);
+		}
+
+		std::erase_if(pipes, [](const Pipe &p) { return p.offScreen(); });
 
 		window.clear();
 
@@ -60,6 +82,9 @@ int main() {
 		window.draw(background);
 
 		flappy.render(window);
+		for (const auto &pipe : pipes) {
+			pipe.render(window);
+		}
 
 		const float groundY = bird::VIRTUAL_HEIGHT - 16.f;
 		ground.setPosition({-groundScroll, groundY});

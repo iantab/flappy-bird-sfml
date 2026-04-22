@@ -10,8 +10,8 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp "src/Bird.cpp")
-target_compile_features(main PRIVATE cxx_std_17)
+add_executable(main src/main.cpp "src/Bird.cpp" "src/Pipe.cpp")
+target_compile_features(main PRIVATE cxx_std_20)
 target_link_libraries(main PRIVATE SFML::Graphics)
 
 add_custom_command(TARGET main POST_BUILD

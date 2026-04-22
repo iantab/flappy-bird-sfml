@@ -1,5 +1,10 @@
 BasedOnStyle: LLVM
 NamespaceIndentation: All
 IndentAccessModifiers: true
-UseTab: Always
+UseTab: AlignWithSpaces
 TabWidth: 2
+AllowShortFunctionsOnASingleLine: None
+AlignAfterOpenBracket: AlwaysBreak
+BinPackArguments: false
+BinPackParameters: false
+AllowAllArgumentsOnNextLine: false
