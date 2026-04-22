@@ -1,0 +1,5 @@
+BasedOnStyle: LLVM
+NamespaceIndentation: All
+IndentAccessModifiers: true
+UseTab: Always
+TabWidth: 2

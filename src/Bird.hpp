@@ -2,15 +2,15 @@
 #include <SFML/Graphics.hpp>
 
 class Bird {
-public:
-	float x, y;
-	float width, height;
+	public:
+		float x, y;
+		float width, height;
 
-	Bird();
+		Bird();
 
-	void render(sf::RenderWindow& window);
+		void render(sf::RenderWindow &window) const;
 
-private:
-	sf::Texture texture;
-	sf::Sprite sprite;
+	private:
+		sf::Texture texture;
+		sf::Sprite sprite;
 };
