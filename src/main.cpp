@@ -46,6 +46,7 @@ int main() {
 
 		groundScroll = std::fmod(groundScroll + bird::GROUND_SCROLL_SPEED * dt,
 														 bird::VIRTUAL_WIDTH);
+		flappy.update(dt);
 
 		window.clear();
 
