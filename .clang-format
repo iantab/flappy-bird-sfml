@@ -1,4 +1,5 @@
 BasedOnStyle: LLVM
+ColumnLimit: 100
 NamespaceIndentation: All
 IndentAccessModifiers: true
 UseTab: AlignWithSpaces
